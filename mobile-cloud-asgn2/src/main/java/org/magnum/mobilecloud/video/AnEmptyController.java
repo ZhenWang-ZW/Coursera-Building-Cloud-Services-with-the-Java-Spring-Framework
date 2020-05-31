@@ -89,8 +89,12 @@ public class AnEmptyController {
     	if(v==null)
         	response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         else {
-        	response.setStatus(HttpServletResponse.SC_OK);
-        	videoService.likeVideo(id, p);
+        	if(v.getLikedBy().contains(p.getName()))
+        		response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        	else {
+        		response.setStatus(HttpServletResponse.SC_OK);
+        		videoService.likeVideo(id, p);
+        	}
         }
     }
 
